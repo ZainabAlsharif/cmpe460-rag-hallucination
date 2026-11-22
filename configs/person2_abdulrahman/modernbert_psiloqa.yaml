@@ -1,0 +1,14 @@
+run_name: p2_modernbert_psiloqa
+model_name: answerdotai/ModernBERT-base
+dataset: psiloqa
+data_dir: data/person2_abdulrahman/psiloqa
+max_length: 4096
+attn_implementation: sdpa   # FlashAttention is not available on T4
+learning_rate: 1.0e-5
+batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+epochs: 3
+fp16: true
+seed: 42
+output_dir: outputs/p2_modernbert_psiloqa

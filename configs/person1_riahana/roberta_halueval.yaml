@@ -1,0 +1,11 @@
+run_name: p1_roberta_halueval
+model_name: FacebookAI/roberta-base
+dataset: halueval_qa
+data_dir: data/person1_riahana/halueval_qa
+max_length: 384
+learning_rate: 2.0e-5
+batch_size: 16
+epochs: 3
+fp16: true
+seed: 42
+output_dir: outputs/p1_roberta_halueval

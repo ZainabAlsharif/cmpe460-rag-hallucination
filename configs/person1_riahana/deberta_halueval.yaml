@@ -1,0 +1,11 @@
+run_name: p1_deberta_halueval
+model_name: microsoft/deberta-v3-base
+dataset: halueval_qa
+data_dir: data/person1_riahana/halueval_qa
+max_length: 384
+learning_rate: 2.0e-5
+batch_size: 16
+epochs: 3
+fp16: false   # DeBERTa-v3 can give NaN loss in fp16
+seed: 42
+output_dir: outputs/p1_deberta_halueval

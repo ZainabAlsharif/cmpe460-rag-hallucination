@@ -1,0 +1,13 @@
+run_name: p2_longformer_psiloqa
+model_name: allenai/longformer-base-4096
+dataset: psiloqa
+data_dir: data/person2_abdulrahman/psiloqa
+max_length: 4096
+learning_rate: 2.0e-5
+batch_size: 1
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+epochs: 3
+fp16: true
+seed: 42
+output_dir: outputs/p2_longformer_psiloqa

@@ -1,0 +1,17 @@
+# Shared
+torch>=2.3
+transformers>=4.51      # Qwen3 + ModernBERT support
+datasets>=2.19
+accelerate>=0.30
+evaluate>=0.4
+scikit-learn>=1.3
+pandas>=2.0
+numpy
+pyyaml
+tqdm
+sentencepiece           # DeBERTa-v3 tokenizer
+protobuf
+
+# Person 3 (Zainab) (LoRA / 4-bit)
+peft>=0.11
+bitsandbytes>=0.43
