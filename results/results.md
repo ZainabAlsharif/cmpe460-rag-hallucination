@@ -16,9 +16,9 @@ Use `src/common/metrics.py → binary_metrics()` so everyone computes the number
 | 2 | Longformer-base-4096 | RAGTruth | | | `configs/person2_abdulrahman/longformer_ragtruth.yaml` | example-level |
 | 2 | Longformer-base-4096 | PsiloQA | | | `configs/person2_abdulrahman/longformer_psiloqa.yaml` | example-level |
 | 3 | Qwen3-1.7B + LoRA | RAGBench | | | `configs/person3_zainab/qwen3_ragbench.yaml` | |
-| 3 | Qwen3-1.7B + LoRA | DelucionQA | | | `configs/person3_zainab/qwen3_delucionqa.yaml` | |
+| 3 | Qwen3-1.7B + LoRA | TRIVIA+ | | | `configs/person3_zainab/qwen3_triviaplus.yaml` | |
 | 3 | Llama-3.2-1B + LoRA | RAGBench | | | `configs/person3_zainab/llama_ragbench.yaml` | |
-| 3 | Llama-3.2-1B + LoRA | DelucionQA | | | `configs/person3_zainab/llama_delucionqa.yaml` | |
+| 3 | Llama-3.2-1B + LoRA | TRIVIA+ | | | `configs/person3_zainab/llama_triviaplus.yaml` | |
 
 ## Person 2 (Abdulrahman) — span-level scores
 
@@ -36,5 +36,6 @@ Use `src/common/metrics.py → binary_metrics()` so everyone computes the number
 | 1 | Answer-only input (no context) | |
 | 1 | Length-only baseline | |
 | 2 | Context truncated to 512 tokens | |
-| 3 | Train RAGBench → test DelucionQA (no further training) | |
-| 3 | LoRA rank 8 vs 32 | |
+| 3 | Train RAGBench (GPT-4 labels) → test TRIVIA+ (human labels), no further training | |
+| 3 | Qwen3 on TRIVIA+: trained on LLM-judge labels vs. human labels (`qwen3_triviaplus_llmlabels.yaml`) | |
+| 3 | (optional) LoRA rank 8 vs 32 | |

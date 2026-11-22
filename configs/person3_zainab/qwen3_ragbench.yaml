@@ -2,8 +2,9 @@ run_name: p3_qwen3_ragbench
 model_name: Qwen/Qwen3-1.7B        # debug first with Qwen/Qwen3-0.6B
 dataset: ragbench
 data_dir: data/person3_zainab/ragbench
-subsets: [covidqa, finqa, techqa, emanual]
-max_train_samples: 8000
+subsets: [finqa, techqa, emanual]
+max_finqa_samples: 4000   # finqa is huge and 92% "supported"
+use_class_weights: true
 max_length: 2048
 load_in_4bit: true
 lora_r: 16

@@ -1,0 +1,21 @@
+# Extra experiment: train on LLM-as-judge labels, evaluate on the human test labels.
+run_name: p3_qwen3_triviaplus_llmlabels
+model_name: Qwen/Qwen3-1.7B
+dataset: triviaplus
+data_file: data/person3_zainab/triviaplus/triviaplus_dataset.parquet
+label_column: response_level_label_binary_ws_llm_aaj   # LLM-judge labels (train/valid only)
+eval_label_column: response_level_label_binary         # always test against human labels
+max_length: 2048
+load_in_4bit: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+learning_rate: 2.0e-4
+batch_size: 1
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+epochs: 2
+fp16: true
+seed: 42
+output_dir: outputs/p3_qwen3_triviaplus_llmlabels

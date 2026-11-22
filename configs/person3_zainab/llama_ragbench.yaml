@@ -2,8 +2,9 @@ run_name: p3_llama_ragbench
 model_name: meta-llama/Llama-3.2-1B-Instruct   # gated; fallback HuggingFaceTB/SmolLM2-1.7B-Instruct
 dataset: ragbench
 data_dir: data/person3_zainab/ragbench
-subsets: [covidqa, finqa, techqa, emanual]
-max_train_samples: 8000
+subsets: [finqa, techqa, emanual]
+max_finqa_samples: 4000   # finqa is huge and 92% "supported"
+use_class_weights: true
 max_length: 2048
 load_in_4bit: true
 lora_r: 16

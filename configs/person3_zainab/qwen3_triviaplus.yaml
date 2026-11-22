@@ -1,7 +1,8 @@
-run_name: p3_llama_delucionqa
-model_name: meta-llama/Llama-3.2-1B-Instruct   # gated; fallback HuggingFaceTB/SmolLM2-1.7B-Instruct
-dataset: delucionqa
-data_dir: data/person3_zainab/delucionqa
+run_name: p3_qwen3_triviaplus
+model_name: Qwen/Qwen3-1.7B        # debug first with Qwen/Qwen3-0.6B
+dataset: triviaplus
+data_file: data/person3_zainab/triviaplus/triviaplus_dataset.parquet
+label_column: response_level_label_binary   # human labels
 max_length: 2048
 load_in_4bit: true
 lora_r: 16
@@ -15,4 +16,4 @@ gradient_checkpointing: true
 epochs: 2
 fp16: true
 seed: 42
-output_dir: outputs/p3_llama_delucionqa
+output_dir: outputs/p3_qwen3_triviaplus

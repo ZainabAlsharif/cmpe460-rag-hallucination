@@ -1,4 +1,4 @@
-"""Download Person 3 (Zainab)'s datasets (RAGBench subsets, DelucionQA) into data/person3_zainab/.
+"""Download Person 3 (Zainab)'s datasets (RAGBench subsets, TRIVIA+) into data/person3_zainab/.
 
 Usage (from the repo root):
     python data/person3_zainab/download.py
@@ -7,16 +7,18 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+import pandas as pd
 from datasets import load_dataset
 
 OUT_DIR = Path(__file__).resolve().parent
 
-# RAGBench subsets to use. Do NOT add "delucionqa" (it overlaps with dataset 2).
-SUBSETS = ["covidqa", "finqa", "techqa", "emanual"]
+# RAGBench subsets to use. covidqa is left out because TRIVIA+ also contains COVID questions;
+# delucionqa is left out because it is a re-labelled copy of another dataset.
+SUBSETS = ["finqa", "techqa", "emanual"]
 
-DELUCIONQA_FILES = ["train.csv", "dev.csv", "test.csv"]
-DELUCIONQA_URL = (
-    "https://raw.githubusercontent.com/boschresearch/DelucionQA/{branch}/data/DelucionQA_final/{name}"
+TRIVIAPLUS_FILE = "triviaplus_dataset.parquet"
+TRIVIAPLUS_URL = (
+    "https://github.com/amazon-science/hallucination-benchmark-trivialplus/raw/{branch}/" + TRIVIAPLUS_FILE
 )
 
 
@@ -28,32 +30,32 @@ def download_ragbench() -> None:
         print(f"    {ds}")
 
 
-def download_delucionqa() -> None:
-    target = OUT_DIR / "delucionqa"
+def download_triviaplus() -> None:
+    target = OUT_DIR / "triviaplus"
     target.mkdir(parents=True, exist_ok=True)
-    for name in DELUCIONQA_FILES:
-        for branch in ("main", "master"):
-            url = DELUCIONQA_URL.format(branch=branch, name=name)
-            try:
-                urllib.request.urlretrieve(url, target / name)
-                print(f"  {name} <- {branch}")
-                break
-            except urllib.error.HTTPError:
-                continue
-        else:
-            raise RuntimeError(
-                f"Could not download {name}. Clone https://github.com/boschresearch/DelucionQA "
-                f"and copy data/DelucionQA_final/*.csv into {target}"
-            )
+    for branch in ("main", "master"):
+        try:
+            urllib.request.urlretrieve(TRIVIAPLUS_URL.format(branch=branch), target / TRIVIAPLUS_FILE)
+            break
+        except urllib.error.HTTPError:
+            continue
+    else:
+        raise RuntimeError(
+            "Could not download TRIVIA+. Get triviaplus_dataset.parquet from "
+            f"https://github.com/amazon-science/hallucination-benchmark-trivialplus and put it in {target}"
+        )
+    df = pd.read_parquet(target / TRIVIAPLUS_FILE)
+    print(f"    {len(df)} rows | splits: {df['split'].value_counts().to_dict()}")
+    print(f"    hallucinated (human label): {df['response_level_label_binary'].mean():.1%}")
 
 
 def main() -> None:
     print("[1/2] RAGBench ...")
     download_ragbench()
-    print("[2/2] DelucionQA ...")
-    download_delucionqa()
+    print("[2/2] TRIVIA+ ...")
+    download_triviaplus()
     print("\nDone. RAGBench: datasets.load_from_disk('data/person3_zainab/ragbench/<subset>'); "
-          "DelucionQA: pandas.read_csv('data/person3_zainab/delucionqa/train.csv')")
+          "TRIVIA+: pandas.read_parquet('data/person3_zainab/triviaplus/triviaplus_dataset.parquet')")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@
 ```bash
 git checkout -b person3_zainab          # first time only
 git add src/person3_zainab configs/person3_zainab
-git commit -m "Add DelucionQA loader"
+git commit -m "Add TRIVIA+ loader"
 git push -u origin person3_zainab
 ```
 Open a pull request into `main` when something works end to end. Shared files (`src/common/`, `requirements.txt`, `results/results.md`) — tell the group before changing them.

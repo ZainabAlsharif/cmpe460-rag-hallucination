@@ -8,7 +8,7 @@ We compare three ways to build a hallucination detector for Retrieval-Augmented 
 |---|---|---|---|
 | **Person 1 (Riahana)** | Response-level encoder classifiers | [HaluEval-QA](https://huggingface.co/datasets/pminervini/HaluEval), [FaithDial](https://huggingface.co/datasets/McGill-NLP/FaithDial) | [RoBERTa-base](https://huggingface.co/FacebookAI/roberta-base), [DeBERTa-v3-base](https://huggingface.co/microsoft/deberta-v3-base) |
 | **Person 2 (Abdulrahman)** | Span-level long-context token taggers | [RAGTruth](https://huggingface.co/datasets/wandb/RAGTruth-processed), [PsiloQA](https://huggingface.co/datasets/s-nlp/PsiloQA) | [ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base), [Longformer-base-4096](https://huggingface.co/allenai/longformer-base-4096) |
-| **Person 3 (Zainab)** | Small LLM judges fine-tuned with LoRA | [RAGBench](https://huggingface.co/datasets/rungalileo/ragbench), [DelucionQA](https://github.com/boschresearch/DelucionQA) | [Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B), [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) |
+| **Person 3 (Zainab)** | Small LLM judges fine-tuned with LoRA | [RAGBench](https://huggingface.co/datasets/rungalileo/ragbench), [TRIVIA+](https://github.com/amazon-science/hallucination-benchmark-trivialplus) | [Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B), [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) |
 
 ## Repository layout
 
@@ -17,7 +17,7 @@ We compare three ways to build a hallucination detector for Retrieval-Augmented 
 ├── data/                       # one folder per person; raw data is downloaded here, NOT committed
 │   ├── person1_riahana/        # README.md + download.py → HaluEval-QA, FaithDial
 │   ├── person2_abdulrahman/    # README.md + download.py → RAGTruth, PsiloQA
-│   └── person3_zainab/         # README.md + download.py → RAGBench, DelucionQA
+│   └── person3_zainab/         # README.md + download.py → RAGBench, TRIVIA+
 ├── src/
 │   ├── common/                 # shared code (metrics, seeding) — used by everyone
 │   ├── person1_riahana/        # Riahana's dataset classes + model wrappers
