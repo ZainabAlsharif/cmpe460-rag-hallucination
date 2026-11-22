@@ -38,4 +38,5 @@ Use `src/common/metrics.py → binary_metrics()` so everyone computes the number
 | 2 | Context truncated to 512 tokens | |
 | 3 | Train RAGBench (GPT-4 labels) → test TRIVIA+ (human labels), no further training | |
 | 3 | Qwen3 on TRIVIA+: trained on LLM-judge labels vs. human labels (`qwen3_triviaplus_llmlabels.yaml`) | |
+| 3 | Zero-shot baselines (no fine-tuning): Qwen3 / Llama on RAGBench and TRIVIA+ | |
 | 3 | (optional) LoRA rank 8 vs 32 | |

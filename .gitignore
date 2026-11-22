@@ -46,3 +46,6 @@ report/*.pdf
 .DS_Store
 .vscode/
 .idea/
+
+# --- Debug runs (smoke tests) ---
+results/*/debug/

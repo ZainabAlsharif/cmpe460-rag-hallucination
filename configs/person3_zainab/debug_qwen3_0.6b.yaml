@@ -1,0 +1,17 @@
+# Quick smoke test (~10 min on a Kaggle T4): checks the whole pipeline before the real runs.
+# Results go to results/person3_zainab/debug/ so they never mix with the real results.
+run_name: p3_debug_qwen3_0.6b_triviaplus
+model_name: Qwen/Qwen3-0.6B
+dataset: triviaplus
+data_file: data/person3_zainab/triviaplus/triviaplus_dataset.parquet
+label_column: response_level_label_binary
+max_train_samples: 200
+max_val_samples: 50
+max_test_samples: 100
+max_length: 1024
+max_response_tokens: 256
+gradient_accumulation_steps: 4
+epochs: 1
+logging_steps: 5
+output_dir: outputs/p3_debug
+results_dir: results/person3_zainab/debug

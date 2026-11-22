@@ -5,7 +5,7 @@ dataset: triviaplus
 data_file: data/person3_zainab/triviaplus/triviaplus_dataset.parquet
 label_column: response_level_label_binary_ws_llm_aaj   # LLM-judge labels (train/valid only)
 eval_label_column: response_level_label_binary         # always test against human labels
-max_length: 2048
+max_length: 1536   # measured on a T4: keeps each run within one Kaggle session
 load_in_4bit: true
 lora_r: 16
 lora_alpha: 32

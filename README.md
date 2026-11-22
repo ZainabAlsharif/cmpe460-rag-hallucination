@@ -40,6 +40,9 @@ python data/person3_zainab/download.py   # use your own folder: person1_riahana 
 Each `download.py` saves both of that person's datasets into its own folder
 (e.g. `data/person3_zainab/ragbench/`, `data/person3_zainab/delucionqa/`).
 
+How to train and evaluate:
+- Person 3 (Zainab): [src/person3_zainab/README.md](src/person3_zainab/README.md) — complete pipeline (train, transfer test, tables + figures)
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the team workflow (branches, where to save checkpoints, what never to commit).
 
 ## Submission rules (from the project spec)

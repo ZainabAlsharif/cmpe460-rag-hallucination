@@ -3,9 +3,9 @@ model_name: meta-llama/Llama-3.2-1B-Instruct   # gated; fallback HuggingFaceTB/S
 dataset: ragbench
 data_dir: data/person3_zainab/ragbench
 subsets: [finqa, techqa, emanual]
-max_finqa_samples: 4000   # finqa is huge and 92% "supported"
+max_finqa_samples: 2000   # finqa is huge and 92% "supported"; capped to keep the run ~4 h
 use_class_weights: true
-max_length: 2048
+max_length: 1536   # measured on a T4: keeps each run within one Kaggle session
 load_in_4bit: true
 lora_r: 16
 lora_alpha: 32
