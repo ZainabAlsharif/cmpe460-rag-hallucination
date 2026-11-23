@@ -1,0 +1,180 @@
+{
+  "run_name": "p3_qwen3_transfer_ragbench_to_triviaplus",
+  "model_name": "Qwen/Qwen3-1.7B",
+  "dataset": "ragbench",
+  "evaluated_on": "triviaplus",
+  "train_label_column": "adherence_score",
+  "test_label_column": "response_level_label_binary",
+  "trained_run": "p3_qwen3_ragbench",
+  "threshold": 0.473774789571762,
+  "data": {
+    "test": {
+      "rows": 645,
+      "hallucinated_rate": 0.3473
+    }
+  },
+  "encoding": {
+    "test": {
+      "examples": 645,
+      "truncated_context_rate": 0.2744,
+      "mean_tokens": 776.4
+    }
+  },
+  "test": {
+    "accuracy": 0.6434,
+    "precision": 0.4688,
+    "recall": 0.2009,
+    "f1": 0.2812,
+    "macro_f1": 0.5221,
+    "auroc": 0.65,
+    "threshold": 0.4738,
+    "n": 645,
+    "hallucinated_rate": 0.3473,
+    "predicted_hallucinated_rate": 0.1488,
+    "confusion_matrix": [
+      [
+        370,
+        51
+      ],
+      [
+        179,
+        45
+      ]
+    ],
+    "per_source": {
+      "covid": {
+        "accuracy": 0.84,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "macro_f1": 0.4565,
+        "auroc": null,
+        "threshold": 0.4738,
+        "n": 25,
+        "hallucinated_rate": 0.0,
+        "predicted_hallucinated_rate": 0.16,
+        "confusion_matrix": [
+          [
+            21,
+            4
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "drop": {
+        "accuracy": 0.524,
+        "precision": 0.7333,
+        "recall": 0.0809,
+        "f1": 0.1457,
+        "macro_f1": 0.4079,
+        "auroc": 0.6499,
+        "threshold": 0.4738,
+        "n": 271,
+        "hallucinated_rate": 0.5018,
+        "predicted_hallucinated_rate": 0.0554,
+        "confusion_matrix": [
+          [
+            131,
+            4
+          ],
+          [
+            125,
+            11
+          ]
+        ]
+      },
+      "ms_marco": {
+        "accuracy": 0.7561,
+        "precision": 0.1429,
+        "recall": 0.2,
+        "f1": 0.1667,
+        "macro_f1": 0.5119,
+        "auroc": 0.7778,
+        "threshold": 0.4738,
+        "n": 41,
+        "hallucinated_rate": 0.122,
+        "predicted_hallucinated_rate": 0.1707,
+        "confusion_matrix": [
+          [
+            30,
+            6
+          ],
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      "msmarco": {
+        "accuracy": 0.8469,
+        "precision": 0.6667,
+        "recall": 0.5,
+        "f1": 0.5714,
+        "macro_f1": 0.7391,
+        "auroc": 0.7635,
+        "threshold": 0.4738,
+        "n": 98,
+        "hallucinated_rate": 0.2041,
+        "predicted_hallucinated_rate": 0.1531,
+        "confusion_matrix": [
+          [
+            73,
+            5
+          ],
+          [
+            10,
+            10
+          ]
+        ]
+      },
+      "nq": {
+        "accuracy": 0.6765,
+        "precision": 0.3947,
+        "recall": 0.4167,
+        "f1": 0.4054,
+        "macro_f1": 0.5916,
+        "auroc": 0.6858,
+        "threshold": 0.4738,
+        "n": 136,
+        "hallucinated_rate": 0.2647,
+        "predicted_hallucinated_rate": 0.2794,
+        "confusion_matrix": [
+          [
+            77,
+            23
+          ],
+          [
+            21,
+            15
+          ]
+        ]
+      },
+      "trivia": {
+        "accuracy": 0.6216,
+        "precision": 0.4706,
+        "recall": 0.2963,
+        "f1": 0.3636,
+        "macro_f1": 0.5472,
+        "auroc": 0.6793,
+        "threshold": 0.4738,
+        "n": 74,
+        "hallucinated_rate": 0.3649,
+        "predicted_hallucinated_rate": 0.2297,
+        "confusion_matrix": [
+          [
+            38,
+            9
+          ],
+          [
+            19,
+            8
+          ]
+        ]
+      }
+    }
+  },
+  "minutes": 2.8
+}

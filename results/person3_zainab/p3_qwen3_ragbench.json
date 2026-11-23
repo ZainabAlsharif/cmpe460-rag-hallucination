@@ -1,0 +1,244 @@
+{
+  "run_name": "p3_qwen3_ragbench",
+  "model_name": "Qwen/Qwen3-1.7B",
+  "dataset": "ragbench",
+  "evaluated_on": "ragbench",
+  "train_label_column": "adherence_score",
+  "test_label_column": "adherence_score",
+  "data": {
+    "train": {
+      "rows": 4246,
+      "hallucinated_rate": 0.1792
+    },
+    "validation": {
+      "rows": 600,
+      "hallucinated_rate": 0.125
+    },
+    "test": {
+      "rows": 2740,
+      "hallucinated_rate": 0.1245
+    }
+  },
+  "encoding": {
+    "train": {
+      "examples": 4246,
+      "truncated_context_rate": 0.3702,
+      "mean_tokens": 1169.3
+    },
+    "validation": {
+      "examples": 600,
+      "truncated_context_rate": 0.2533,
+      "mean_tokens": 1194.7
+    },
+    "test": {
+      "examples": 2740,
+      "truncated_context_rate": 0.2449,
+      "mean_tokens": 1200.2
+    }
+  },
+  "parameters": {
+    "trainable": 17432576,
+    "total": 1033364480,
+    "trainable_pct": 1.687
+  },
+  "class_weights": [
+    0.6092,
+    2.7898
+  ],
+  "train_loss": 0.6119,
+  "epochs_log": [
+    {
+      "epoch": 1.0,
+      "loss": 0.4421156942844391,
+      "accuracy": 0.8733,
+      "f1": 0.5,
+      "macro_f1": 0.7137,
+      "auroc": 0.8614,
+      "predicted_hallucinated_rate": 0.1283
+    }
+  ],
+  "threshold": 0.4738,
+  "validation": {
+    "accuracy": 0.875,
+    "precision": 0.5,
+    "recall": 0.56,
+    "f1": 0.5283,
+    "macro_f1": 0.7281,
+    "auroc": 0.8615,
+    "threshold": 0.4738,
+    "n": 600,
+    "hallucinated_rate": 0.125,
+    "predicted_hallucinated_rate": 0.14,
+    "confusion_matrix": [
+      [
+        483,
+        42
+      ],
+      [
+        33,
+        42
+      ]
+    ]
+  },
+  "test": {
+    "accuracy": 0.8737,
+    "precision": 0.4938,
+    "recall": 0.5836,
+    "f1": 0.5349,
+    "macro_f1": 0.7309,
+    "auroc": 0.8859,
+    "threshold": 0.4738,
+    "n": 2740,
+    "hallucinated_rate": 0.1245,
+    "predicted_hallucinated_rate": 0.1471,
+    "confusion_matrix": [
+      [
+        2195,
+        204
+      ],
+      [
+        142,
+        199
+      ]
+    ],
+    "per_source": {
+      "emanual": {
+        "accuracy": 0.8409,
+        "precision": 0.2667,
+        "recall": 0.2857,
+        "f1": 0.2759,
+        "macro_f1": 0.5933,
+        "auroc": 0.8015,
+        "threshold": 0.4738,
+        "n": 132,
+        "hallucinated_rate": 0.1061,
+        "predicted_hallucinated_rate": 0.1136,
+        "confusion_matrix": [
+          [
+            107,
+            11
+          ],
+          [
+            10,
+            4
+          ]
+        ]
+      },
+      "finqa": {
+        "accuracy": 0.9041,
+        "precision": 0.44,
+        "recall": 0.449,
+        "f1": 0.4444,
+        "macro_f1": 0.696,
+        "auroc": 0.877,
+        "threshold": 0.4738,
+        "n": 2294,
+        "hallucinated_rate": 0.0854,
+        "predicted_hallucinated_rate": 0.0872,
+        "confusion_matrix": [
+          [
+            1986,
+            112
+          ],
+          [
+            108,
+            88
+          ]
+        ]
+      },
+      "techqa": {
+        "accuracy": 0.6656,
+        "precision": 0.5691,
+        "recall": 0.8168,
+        "f1": 0.6708,
+        "macro_f1": 0.6655,
+        "auroc": 0.7837,
+        "threshold": 0.4738,
+        "n": 314,
+        "hallucinated_rate": 0.4172,
+        "predicted_hallucinated_rate": 0.5987,
+        "confusion_matrix": [
+          [
+            102,
+            81
+          ],
+          [
+            24,
+            107
+          ]
+        ]
+      }
+    }
+  },
+  "test_at_0.5": {
+    "accuracy": 0.8792,
+    "precision": 0.5132,
+    "recall": 0.5689,
+    "f1": 0.5396,
+    "macro_f1": 0.7351,
+    "auroc": 0.8859,
+    "threshold": 0.5,
+    "n": 2740,
+    "hallucinated_rate": 0.1245,
+    "predicted_hallucinated_rate": 0.138,
+    "confusion_matrix": [
+      [
+        2215,
+        184
+      ],
+      [
+        147,
+        194
+      ]
+    ]
+  },
+  "minutes": 139.4,
+  "config": {
+    "run_name": "p3_qwen3_ragbench",
+    "model_name": "Qwen/Qwen3-1.7B",
+    "dataset": "ragbench",
+    "data_dir": "data/person3_zainab/ragbench",
+    "data_file": null,
+    "subsets": [
+      "finqa",
+      "techqa",
+      "emanual"
+    ],
+    "max_finqa_samples": 2000,
+    "label_column": "response_level_label_binary",
+    "eval_label_column": "response_level_label_binary",
+    "max_train_samples": null,
+    "max_val_samples": 600,
+    "max_test_samples": null,
+    "max_length": 1536,
+    "max_question_tokens": 256,
+    "max_response_tokens": 512,
+    "load_in_4bit": true,
+    "gradient_checkpointing": true,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "lora_target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "batch_size": 1,
+    "eval_batch_size": 2,
+    "gradient_accumulation_steps": 16,
+    "epochs": 1,
+    "warmup_ratio": 0.03,
+    "weight_decay": 0.0,
+    "use_class_weights": true,
+    "fp16": true,
+    "seed": 42,
+    "logging_steps": 10,
+    "output_dir": "outputs/p3_qwen3_ragbench",
+    "results_dir": "results/person3_zainab"
+  }
+}
