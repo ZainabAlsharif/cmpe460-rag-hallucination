@@ -76,7 +76,20 @@ python -m src.person3_zainab.train --config configs/person3_zainab/qwen3_triviap
 python -m src.person3_zainab.summarize
 ```
 Writes `results/person3_zainab/summary.md`, `report/tables/person3_results.tex` (`\input{tables/person3_results}`
-in the report) and three figures in `report/figures/person3/`. Commit `results/` and `report/` afterwards.
+in the report) and four figures in `report/figures/person3/`: F1 per run, confusion matrices, F1 per
+source/domain and ROC curves (one panel per test set). Commit `results/` and `report/` afterwards.
+
+The **architecture diagram** for the Methodology section is already in the repo
+(`report/figures/person3/architecture.pdf`); regenerate it with `python -m src.person3_zainab.figures`.
+
+```latex
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/person3/architecture.pdf}
+    \caption{The LLM judge: a 4-bit decoder LLM with LoRA adapters, read out through the " Yes"/" No" tokens.}
+    \label{fig:p3-architecture}
+\end{figure}
+```
 
 ## What each file does
 
@@ -90,7 +103,8 @@ in the report) and three figures in `report/figures/person3/`. Commit `results/`
 | `evaluation.py` | `Predictor`, `compute_report` | Batched inference; accuracy, P/R/F1 (hallucinated class), macro-F1, AUROC, confusion matrix, per-source scores |
 | `train.py` | `Experiment` | Full run: data → encode → train (best epoch by validation macro-F1) → decision threshold tuned on validation → test → save |
 | `evaluate.py` | `JudgeEvaluation` | Test a trained adapter on another dataset (transfer), or the untrained model (zero-shot) |
-| `summarize.py` | `ResultsSummary` | Markdown + LaTeX tables and figures from all result files |
+| `summarize.py` | `ResultsSummary` | Markdown + LaTeX tables and figures (F1, confusion matrices, per-source F1, ROC curves) |
+| `figures.py` | `ArchitectureDiagram` | Architecture diagram for the Methodology section |
 
 Local checks that need no GPU: `python tests/test_person3.py`.
 

@@ -11,6 +11,7 @@ Reads ``results/person3_zainab/*.json`` and writes
 * ``report/figures/person3/f1_by_run.png``       bar chart of test F1 / macro-F1
 * ``report/figures/person3/confusion_matrices.png``
 * ``report/figures/person3/f1_per_source.png``   F1 per domain / source dataset
+* ``report/figures/person3/roc_curves.png``      ROC curves, one panel per test dataset
 """
 from __future__ import annotations
 
@@ -20,11 +21,22 @@ from pathlib import Path
 from typing import Dict, List
 
 import matplotlib
+import pandas as pd
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 DATASET_NAMES = {"ragbench": "RAGBench", "triviaplus": "TRIVIA+"}
+
+# Colour-blind-safe categorical palette (fixed order, never cycled) and text inks.
+PALETTE = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+OVERFLOW = "#a3a29c"  # runs beyond the 8th share a neutral grey
+INK, INK_2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
+
+plt.rcParams.update({
+    "axes.edgecolor": INK_2, "axes.labelcolor": INK, "xtick.color": INK_2, "ytick.color": INK_2,
+    "text.color": INK, "font.size": 9, "axes.titlesize": 10, "legend.fontsize": 8,
+})
 
 
 def short_model(name: str) -> str:
@@ -39,6 +51,18 @@ class ResultsSummary:
         self.runs: List[Dict] = [json.loads(p.read_text()) for p in sorted(results_dir.glob("*.json"))]
         if not self.runs:
             raise SystemExit(f"No result files in {results_dir} - run train.py first.")
+
+    def color(self, run_name: str) -> str:
+        """Colour follows the run (entity), not its rank in a particular chart."""
+        names = sorted(r["run_name"] for r in self.runs)
+        idx = names.index(run_name)
+        return PALETTE[idx] if idx < len(PALETTE) else OVERFLOW
+
+    @staticmethod
+    def style(ax) -> None:
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.grid(axis="y", color=GRID, linewidth=0.8)
+        ax.set_axisbelow(True)
 
     @staticmethod
     def describe(run: Dict) -> str:
@@ -98,13 +122,15 @@ class ResultsSummary:
         labels = [f"{r['model']}\n{r['experiment']}" for r in rows]
         x = range(len(rows))
         fig, ax = plt.subplots(figsize=(max(6, 1.6 * len(rows)), 4))
-        ax.bar([i - 0.2 for i in x], [r["f1"] for r in rows], width=0.4, label="F1 (hallucinated)", color="#3b6ea5")
-        ax.bar([i + 0.2 for i in x], [r["macro_f1"] for r in rows], width=0.4, label="Macro-F1", color="#9bbbd9")
+        ax.bar([i - 0.2 for i in x], [r["f1"] for r in rows], width=0.38, label="F1 (hallucinated class)",
+               color=PALETTE[0], edgecolor="white", linewidth=2)
+        ax.bar([i + 0.2 for i in x], [r["macro_f1"] for r in rows], width=0.38, label="Macro-F1",
+               color=PALETTE[1], edgecolor="white", linewidth=2)
         ax.set_xticks(list(x), labels, fontsize=8)
         ax.set_ylim(0, 1)
         ax.set_ylabel("Score on test set")
         ax.legend(frameon=False)
-        ax.spines[["top", "right"]].set_visible(False)
+        self.style(ax)
         fig.tight_layout()
         fig.savefig(path, dpi=200)
         plt.close(fig)
@@ -139,13 +165,48 @@ class ResultsSummary:
         for run in runs:
             per = run["test"]["per_source"]
             names = sorted(per)
-            ax.plot(names, [per[s]["f1"] for s in names], marker="o",
+            ax.plot(names, [per[s]["f1"] for s in names], marker="o", markersize=6, linewidth=2,
+                    color=self.color(run["run_name"]),
                     label=f"{short_model(run['model_name'])} · {self.describe(run)}")
         ax.set_ylim(0, 1)
-        ax.set_ylabel("F1 (hallucinated)")
+        ax.set_ylabel("F1 (hallucinated class)")
         ax.set_xlabel("source / domain")
         ax.legend(fontsize=7, frameon=False)
-        ax.spines[["top", "right"]].set_visible(False)
+        self.style(ax)
+        fig.tight_layout()
+        fig.savefig(path, dpi=200)
+        plt.close(fig)
+
+    def plot_roc(self, path: Path) -> None:
+        """ROC curve of every run, one panel per test dataset (reads the *_predictions.csv files)."""
+        from sklearn.metrics import roc_curve
+
+        panels: Dict[str, List[Dict]] = {}
+        for run in self.runs:
+            csv = self.results_dir / f"{run['run_name']}_predictions.csv"
+            if csv.exists():
+                panels.setdefault(run.get("evaluated_on", run["dataset"]), []).append(run)
+        if not panels:
+            return
+        fig, axes = plt.subplots(1, len(panels), figsize=(5.2 * len(panels), 4.6), squeeze=False)
+        for ax, (tested, runs) in zip(axes[0], sorted(panels.items())):
+            ax.plot([0, 1], [0, 1], linestyle="--", color=OVERFLOW, linewidth=1, label="chance (AUROC 0.5)")
+            for run in runs:
+                pred = pd.read_csv(self.results_dir / f"{run['run_name']}_predictions.csv")
+                if pred["label"].nunique() < 2:
+                    continue
+                fpr, tpr, _ = roc_curve(pred["label"], pred["prob_hallucinated"])
+                auroc = run["test"].get("auroc")
+                ax.plot(fpr, tpr, linewidth=2, color=self.color(run["run_name"]),
+                        label=f"{short_model(run['model_name'])} · {self.describe(run)}  (AUROC {auroc:.3f})")
+            ax.set_title(f"Test set: {DATASET_NAMES.get(tested, tested)}", color=INK)
+            ax.set_xlabel("false positive rate (supported answers flagged)")
+            ax.set_ylabel("true positive rate (hallucinations caught)")
+            ax.set_xlim(0, 1)
+            ax.set_ylim(0, 1.01)
+            ax.legend(fontsize=7, frameon=False, loc="lower right")
+            self.style(ax)
+            ax.grid(axis="x", color=GRID, linewidth=0.8)
         fig.tight_layout()
         fig.savefig(path, dpi=200)
         plt.close(fig)
@@ -159,6 +220,7 @@ class ResultsSummary:
         self.plot_f1(figure_dir / "f1_by_run.png")
         self.plot_confusions(figure_dir / "confusion_matrices.png")
         self.plot_per_source(figure_dir / "f1_per_source.png")
+        self.plot_roc(figure_dir / "roc_curves.png")
         print(md)
         print(f"\nWrote {self.results_dir / 'summary.md'}, {table_dir / 'person3_results.tex'} and figures in {figure_dir}")
 
