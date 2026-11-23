@@ -1,0 +1,114 @@
+{
+  "run_name": "p3_qwen3_zeroshot_ragbench",
+  "model_name": "Qwen/Qwen3-1.7B",
+  "dataset": "none (zero-shot)",
+  "evaluated_on": "ragbench",
+  "train_label_column": null,
+  "test_label_column": "adherence_score",
+  "trained_run": null,
+  "threshold": 0.5,
+  "data": {
+    "test": {
+      "rows": 2740,
+      "hallucinated_rate": 0.1245
+    }
+  },
+  "encoding": {
+    "test": {
+      "examples": 2740,
+      "truncated_context_rate": 0.2449,
+      "mean_tokens": 1200.2
+    }
+  },
+  "test": {
+    "accuracy": 0.8752,
+    "precision": 0.3333,
+    "recall": 0.0029,
+    "f1": 0.0058,
+    "macro_f1": 0.4696,
+    "auroc": 0.6711,
+    "threshold": 0.5,
+    "n": 2740,
+    "hallucinated_rate": 0.1245,
+    "predicted_hallucinated_rate": 0.0011,
+    "confusion_matrix": [
+      [
+        2397,
+        2
+      ],
+      [
+        340,
+        1
+      ]
+    ],
+    "per_source": {
+      "emanual": {
+        "accuracy": 0.8864,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "macro_f1": 0.4699,
+        "auroc": 0.585,
+        "threshold": 0.5,
+        "n": 132,
+        "hallucinated_rate": 0.1061,
+        "predicted_hallucinated_rate": 0.0076,
+        "confusion_matrix": [
+          [
+            117,
+            1
+          ],
+          [
+            14,
+            0
+          ]
+        ]
+      },
+      "finqa": {
+        "accuracy": 0.9146,
+        "precision": 0.5,
+        "recall": 0.0051,
+        "f1": 0.0101,
+        "macro_f1": 0.4827,
+        "auroc": 0.6338,
+        "threshold": 0.5,
+        "n": 2294,
+        "hallucinated_rate": 0.0854,
+        "predicted_hallucinated_rate": 0.0009,
+        "confusion_matrix": [
+          [
+            2097,
+            1
+          ],
+          [
+            195,
+            1
+          ]
+        ]
+      },
+      "techqa": {
+        "accuracy": 0.5828,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "macro_f1": 0.3682,
+        "auroc": 0.551,
+        "threshold": 0.5,
+        "n": 314,
+        "hallucinated_rate": 0.4172,
+        "predicted_hallucinated_rate": 0.0,
+        "confusion_matrix": [
+          [
+            183,
+            0
+          ],
+          [
+            131,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  "minutes": 14.3
+}

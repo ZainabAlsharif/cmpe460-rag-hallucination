@@ -1,0 +1,11 @@
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l l c c c c}
+        \textbf{Model} & \textbf{Train $\rightarrow$ Test} & \textbf{Acc} & \textbf{F1} & \textbf{Macro-F1} & \textbf{AUROC} \\ \hline
+        Qwen3-1.7B & TRIVIA+ & 0.766 & 0.662 & 0.742 & 0.827 \\
+        Qwen3-1.7B & zero-shot on RAGBench & 0.875 & 0.006 & 0.470 & 0.671 \\
+        Qwen3-1.7B & zero-shot on TRIVIA+ & 0.640 & 0.025 & 0.402 & 0.540 \\
+    \end{tabular}
+    \caption[Person 3 results]{Test results of the LoRA-fine-tuned LLM judges. F1, precision and recall refer to the hallucinated class.}
+    \label{tab:person3-results}
+\end{table}
