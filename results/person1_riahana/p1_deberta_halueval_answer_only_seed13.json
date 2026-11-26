@@ -1,0 +1,121 @@
+{
+  "config": {
+    "run_name": "p1_deberta_halueval_answer_only_seed13",
+    "model_name": "microsoft/deberta-v3-base",
+    "dataset": "halueval_qa",
+    "data_dir": "data/person1_riahana/halueval_qa",
+    "output_dir": "outputs/p1_deberta_halueval_answer_only_seed13",
+    "max_length": 384,
+    "learning_rate": 2e-05,
+    "batch_size": 2,
+    "grad_accumulation": 8,
+    "epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "fp16": false,
+    "gradient_checkpointing": false,
+    "bf16": true,
+    "eight_bit_optimizer": true,
+    "seed": 13,
+    "split_seed": 42,
+    "input_mode": "answer_only",
+    "history_turns": 3,
+    "max_train_examples": 0,
+    "max_eval_examples": 0,
+    "results_dir": "results/person1_riahana"
+  },
+  "best_epoch": 1,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.16523165953132546,
+      "seconds": 956,
+      "validation": {
+        "accuracy": 0.9794794794794794,
+        "precision": 0.9938144329896907,
+        "recall": 0.964964964964965,
+        "f1": 0.979177247333672,
+        "macro_f1": 0.9794751554872603,
+        "auroc": 0.9882279677074473,
+        "confusion_matrix": [
+          [
+            993,
+            6
+          ],
+          [
+            35,
+            964
+          ]
+        ],
+        "n": 1998
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0881986963034909,
+      "seconds": 981,
+      "validation": {
+        "accuracy": 0.978978978978979,
+        "precision": 0.9917780061664954,
+        "recall": 0.965965965965966,
+        "f1": 0.9787018255578094,
+        "macro_f1": 0.9789754187077584,
+        "auroc": 0.9890165440715991,
+        "confusion_matrix": [
+          [
+            991,
+            8
+          ],
+          [
+            34,
+            965
+          ]
+        ],
+        "n": 1998
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.0714880042836083,
+      "seconds": 977,
+      "validation": {
+        "accuracy": 0.978978978978979,
+        "precision": 0.9897645854657113,
+        "recall": 0.9679679679679679,
+        "f1": 0.978744939271255,
+        "macro_f1": 0.9789764300316671,
+        "auroc": 0.9894098302506712,
+        "confusion_matrix": [
+          [
+            989,
+            10
+          ],
+          [
+            32,
+            967
+          ]
+        ],
+        "n": 1998
+      }
+    }
+  ],
+  "test": {
+    "accuracy": 0.9779669504256384,
+    "precision": 0.9917568263781555,
+    "recall": 0.9639459188783175,
+    "f1": 0.9776536312849162,
+    "macro_f1": 0.9779626181115939,
+    "auroc": 0.9882998007276312,
+    "confusion_matrix": [
+      [
+        1981,
+        16
+      ],
+      [
+        72,
+        1925
+      ]
+    ],
+    "n": 3994
+  }
+}

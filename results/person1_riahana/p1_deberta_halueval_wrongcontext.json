@@ -1,0 +1,24 @@
+{
+  "trained_on": "halueval_qa",
+  "tested_on": "halueval_qa",
+  "shuffled_context": true,
+  "test": {
+    "accuracy": 0.5440660991487231,
+    "precision": 0.5230607966457023,
+    "recall": 0.99949924887331,
+    "f1": 0.6867366248064682,
+    "macro_f1": 0.4247476227480617,
+    "auroc": 0.9113227929024234,
+    "confusion_matrix": [
+      [
+        177,
+        1820
+      ],
+      [
+        1,
+        1996
+      ]
+    ],
+    "n": 3994
+  }
+}

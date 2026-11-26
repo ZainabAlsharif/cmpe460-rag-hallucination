@@ -7,10 +7,10 @@ Use `src/common/metrics.py → binary_metrics()` so everyone computes the number
 
 | Person | Model | Dataset | Acc | F1 | Config | Notes |
 |---|---|---|---|---|---|---|
-| 1 | RoBERTa-base | HaluEval-QA | | | `configs/person1_riahana/roberta_halueval.yaml` | |
-| 1 | RoBERTa-base | FaithDial | | | `configs/person1_riahana/roberta_faithdial.yaml` | |
-| 1 | DeBERTa-v3-base | HaluEval-QA | | | `configs/person1_riahana/deberta_halueval.yaml` | |
-| 1 | DeBERTa-v3-base | FaithDial | | | `configs/person1_riahana/deberta_faithdial.yaml` | |
+| 1 | RoBERTa-base | HaluEval-QA | 0.994 | 0.994 | `configs/person1_riahana/roberta_halueval.yaml` | mean of 3 seeds; macro-F1 0.994, AUROC 0.998, 3994 test examples |
+| 1 | RoBERTa-base | FaithDial | 0.958 | 0.957 | `configs/person1_riahana/roberta_faithdial.yaml` | mean of 3 seeds; macro-F1 0.958, AUROC 0.992, 5275 test examples |
+| 1 | DeBERTa-v3-base | HaluEval-QA | 0.993 | 0.993 | `configs/person1_riahana/deberta_halueval.yaml` | mean of 3 seeds; macro-F1 0.993, AUROC 0.998, 3994 test examples |
+| 1 | DeBERTa-v3-base | FaithDial | 0.964 | 0.963 | `configs/person1_riahana/deberta_faithdial.yaml` | mean of 3 seeds; macro-F1 0.964, AUROC 0.994, 5275 test examples |
 | 2 | ModernBERT-base | RAGTruth | | | `configs/person2_abdulrahman/modernbert_ragtruth.yaml` | example-level |
 | 2 | ModernBERT-base | PsiloQA | | | `configs/person2_abdulrahman/modernbert_psiloqa.yaml` | example-level |
 | 2 | Longformer-base-4096 | RAGTruth | | | `configs/person2_abdulrahman/longformer_ragtruth.yaml` | example-level |
@@ -33,8 +33,9 @@ Use `src/common/metrics.py → binary_metrics()` so everyone computes the number
 
 | Person | Experiment | Result |
 |---|---|---|
-| 1 | Answer-only input (no context) | |
-| 1 | Length-only baseline | |
+| 1 | Answer-only input (no context) | Accuracy HaluEval / FaithDial, mean of 3 seeds: RoBERTa 0.978 / 0.937, DeBERTa 0.977 / 0.935 |
+| 1 | Length-only baseline | Accuracy HaluEval / FaithDial: 0.944 / 0.534 (word-overlap baseline: 0.984 / 0.561) |
+| 1 | Wrong context and cross-dataset tests | see `results/person1_riahana/summary.md` (mean ± std) and `analysis.md` (significance, error analysis) |
 | 2 | Context truncated to 512 tokens | |
 | 3 | Train RAGBench (GPT-4 labels) → test TRIVIA+ (human labels), no further training | Qwen3: acc 0.643, F1 0.281, macro-F1 0.522, AUROC 0.650 (vs. 0.742 macro-F1 / 0.827 AUROC when trained on TRIVIA+ itself) |
 | 3 | Qwen3 on TRIVIA+: trained on LLM-judge labels vs. human labels (`qwen3_triviaplus_llmlabels.yaml`) | |

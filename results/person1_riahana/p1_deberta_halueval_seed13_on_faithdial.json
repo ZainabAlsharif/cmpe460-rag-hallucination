@@ -1,0 +1,24 @@
+{
+  "trained_on": "halueval_qa",
+  "tested_on": "faithdial",
+  "shuffled_context": false,
+  "test": {
+    "accuracy": 0.4860663507109005,
+    "precision": 0.4879573876794812,
+    "recall": 0.8082086689681627,
+    "f1": 0.6085198555956679,
+    "macro_f1": 0.4303288933150753,
+    "auroc": 0.5497943634626876,
+    "confusion_matrix": [
+      [
+        457,
+        2211
+      ],
+      [
+        500,
+        2107
+      ]
+    ],
+    "n": 5275
+  }
+}
