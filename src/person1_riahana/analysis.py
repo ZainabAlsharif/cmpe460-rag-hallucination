@@ -4,6 +4,7 @@
 2. Does the model react to the context?  Grounded responses flagged as hallucinated, right vs wrong context.
 3. Is length the only shortcut?  Scores on HaluEval responses of similar length.
 4. Which examples go wrong?  Error rates by kind of example, and a list of examples most runs get wrong.
+5. Do training and test data overlap?  Counts of shared text, and FaithDial scores on unseen knowledge.
 
 Usage (from the repository root):
     python -m src.person1_riahana.analysis
@@ -187,8 +188,39 @@ class Analysis:
                 e = self.test[dataset][i]
                 writer.writerow([i, e.label, wrong[i], runs, e.context, e.response])
 
+    # ------------------------------------------------------------------ 5. overlap
+    def overlap_section(self):
+        lines = ["## 5. Do training and test data overlap?", "",
+                 "Number of test examples whose text also occurs in the training split.", "",
+                 "| Dataset | Test examples | Same context and response | Same context | Same knowledge text | "
+                 "Same response string |", "|---|---|---|---|---|---|"]
+        known = {}
+        for dataset, (_, title) in DATASETS.items():
+            train = load_examples(dataset, DATA_DIRS[dataset], self.seed)["train"]
+            known[dataset] = {e.knowledge for e in train}
+            cells = []
+            for key in (lambda e: (e.context, e.response), lambda e: e.context, lambda e: e.knowledge,
+                        lambda e: e.response):
+                seen = {key(e) for e in train}
+                cells.append(str(sum(key(e) in seen for e in self.test[dataset])))
+            lines.append(f"| {title} | {len(self.test[dataset])} | " + " | ".join(cells) + " |")
+
+        dataset = "faithdial"
+        seen = np.array([e.knowledge in known[dataset] for e in self.test[dataset]])
+        lines += ["", "The official FaithDial splits share knowledge sentences, so its test accuracy is split by "
+                      "whether the sentence occurs in the training data (mean ± standard deviation over the seeds).",
+                  "", f"| Model | Input | Seen knowledge ({seen.sum()}) | Unseen knowledge ({(~seen).sum()}) |",
+                  "|---|---|---|---|"]
+        for model, name in MODELS.items():
+            for setting, text in (("", "context + response"), ("_answer_only", "response only")):
+                correct = self.correct(dataset, model, setting)
+                cells = [self._mean_std(correct[:, mask].mean(axis=1)) for mask in (seen, ~seen)]
+                lines.append(f"| {name} | {text} | {cells[0]} | {cells[1]} |")
+        return lines
+
     def write(self) -> Path:
-        sections = (self.differences_section(), self.context_section(), self.length_section(), self.errors_section())
+        sections = (self.differences_section(), self.context_section(), self.length_section(), self.errors_section(),
+                    self.overlap_section())
         lines = ["# Person 1: analysis of the test predictions"]
         for section in sections:
             lines += ["", *section]

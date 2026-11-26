@@ -96,7 +96,8 @@ class ResultsSummary:
         return "\n".join(lines) + "\n"
 
     def latex(self) -> str:
-        lines = [r"\begin{table}[h]", r"\centering", r"\small", r"\begin{tabular}{lllcccc}", r"\hline",
+        lines = [r"\begin{table}[h]", r"\centering", r"\resizebox{\textwidth}{!}{%", r"\begin{tabular}{lllcccc}",
+                 r"\hline",
                  r"Dataset & Model & Setting & Acc & F1 & Macro-F1 & AUROC \\", r"\hline"]
         previous = None
         for dataset, model, setting, report in self.rows():
@@ -104,7 +105,7 @@ class ResultsSummary:
                 lines.append(r"\hline")
             previous = dataset
             lines.append(" & ".join([dataset, model, setting, *self._cells(report, r"$\pm$")]) + r" \\")
-        lines += [r"\hline", r"\end{tabular}",
+        lines += [r"\hline", r"\end{tabular}}",
                   r"\caption{Test results of the response-level classifiers, their ablations and the surface "
                   r"baselines. F1 refers to the hallucinated class. Neural models are reported as mean $\pm$ "
                   r"standard deviation over the training seeds; the baselines are deterministic.}",

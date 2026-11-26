@@ -1,6 +1,6 @@
 \begin{table}[h]
 \centering
-\small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lllcccc}
 \hline
 Dataset & Model & Setting & Acc & F1 & Macro-F1 & AUROC \\
@@ -27,7 +27,7 @@ FaithDial & DeBERTa-v3-base & Trained on the other dataset & 0.508$\pm$0.045 & 0
 FaithDial & Baseline: length & Surface features only & 0.534 & 0.519 & 0.534 & 0.548 \\
 FaithDial & Baseline: overlap & Surface features only & 0.561 & 0.561 & 0.561 & 0.584 \\
 \hline
-\end{tabular}
+\end{tabular}}
 \caption{Test results of the response-level classifiers, their ablations and the surface baselines. F1 refers to the hallucinated class. Neural models are reported as mean $\pm$ standard deviation over the training seeds; the baselines are deterministic.}
 \label{tab:p1-results}
 \end{table}

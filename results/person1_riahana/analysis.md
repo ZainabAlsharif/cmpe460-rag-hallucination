@@ -75,3 +75,21 @@ Error rate of the full-input models, averaged over the seeds.
 | Hallucinated, not copied word for word | 2605 | 5.23% | 4.56% |
 
 4886 examples are right in all 6 runs; 114 are wrong in at least 5 runs (listed in `hard_examples_faithdial.csv`).
+
+## 5. Do training and test data overlap?
+
+Number of test examples whose text also occurs in the training split.
+
+| Dataset | Test examples | Same context and response | Same context | Same knowledge text | Same response string |
+|---|---|---|---|---|---|
+| HaluEval-QA | 3994 | 0 | 0 | 0 | 517 |
+| FaithDial | 5275 | 0 | 2 | 1605 | 0 |
+
+The official FaithDial splits share knowledge sentences, so its test accuracy is split by whether the sentence occurs in the training data (mean ± standard deviation over the seeds).
+
+| Model | Input | Seen knowledge (1605) | Unseen knowledge (3670) |
+|---|---|---|---|
+| RoBERTa-base | context + response | 95.9 ± 0.1% | 95.8 ± 0.2% |
+| RoBERTa-base | response only | 93.7 ± 0.2% | 93.6 ± 0.5% |
+| DeBERTa-v3-base | context + response | 96.8 ± 0.3% | 96.2 ± 0.3% |
+| DeBERTa-v3-base | response only | 93.5 ± 0.2% | 93.5 ± 0.5% |

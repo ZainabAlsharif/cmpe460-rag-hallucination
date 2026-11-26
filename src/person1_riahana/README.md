@@ -69,6 +69,24 @@ batch size 2 x 8 steps on HaluEval and 4 x 4 steps on FaithDial.
 | `summarize.py` | tables and figures over all seeds |
 | `analysis.py` | bootstrap and McNemar tests, context sensitivity, length-matched subset, error slices |
 
+## Why the scores are high: not train/test leakage
+
+Accuracy close to 100% is a reason to look for leakage, so it was checked
+(`analysis.py`, section 5, written to `results/person1_riahana/analysis.md`).
+
+* **HaluEval-QA:** no knowledge passage, context or (context, response) pair of the test set occurs in the
+  training set. Short answer strings such as names do repeat across different passages (517 of 3,994 test
+  examples).
+* **FaithDial:** no (context, response) pair or response string of the test set occurs in the training set.
+  1,605 of 5,275 test examples use a knowledge sentence that is also in the training data, but accuracy on the
+  other 3,670 examples is nearly the same.
+* **The dataset itself gives the answer away.** On HaluEval-QA a logistic regression on two word-overlap
+  features reaches 98.4% and one on response length 94.4%, without any neural network. The encoders reach
+  97.8% from the response alone.
+
+The high scores therefore show that these test sets can be solved with surface cues. They are not evidence
+that the models check facts, and the models do not transfer to the other dataset.
+
 ## Data decisions
 
 * HaluEval-QA has one split only. It is divided 70/10/20 **by knowledge passage**, so the two answers of a
