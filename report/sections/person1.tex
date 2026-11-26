@@ -1,0 +1,51 @@
+% Person 1 chapter. Included from main.tex with \input{sections/person1}.
+% Replace every \textit{...} placeholder with your own text. Comment lines (%) do not appear in the PDF.
+% Numbers: results/person1_riahana/summary.md and analysis.md.
+
+\chapter{Raihana Grine}
+
+\section{Methodology}
+% - Task: decide whether a whole response is hallucinated; research question.
+% - RoBERTa-base and DeBERTa-v3-base, pair input [context] [response], only the context is truncated.
+% - Settings: 384 tokens, learning rate 2e-5, 3 epochs, batch size 16 through gradient accumulation,
+%   8-bit AdamW; RoBERTa in fp16, DeBERTa in bfloat16; best epoch by validation macro-F1; seeds 42, 13, 2024.
+% - Ablations and checks: response only, wrong context, cross-dataset, length and overlap baselines.
+\textit{... The methodology used in this study ...}
+
+\section{Experiments \& Findings}
+% - Datasets, splits and label construction (see src/person1_riahana/README.md).
+% - Main results, then ablations, significance tests, context sensitivity.
+\textit{... The results of this study ...}
+
+\input{tables/person1_results}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/person1/accuracy_by_setting.png}
+    \caption{Test accuracy of both encoders in every setting, with the surface baselines. Error bars show the
+    standard deviation over three training seeds.}
+    \label{fig:p1-accuracy}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/person1/response_lengths.png}
+    \caption{Response length of grounded and hallucinated test examples.}
+    \label{fig:p1-lengths}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{figures/person1/confusion_matrices.png}
+    \caption{Confusion matrices of the full-input models on the test sets (seed 42).}
+    \label{fig:p1-confusion}
+\end{figure}
+
+\section{Discussion}
+% - Answer to the research question: grounding or shortcuts, with the evidence for both sides.
+% - RoBERTa vs DeBERTa; why there is no transfer; hard examples.
+% - Limitations: three seeds, data artefacts, different precision for the two models.
+\textit{... The discussion for the results ...}
+
+\section{Conclusion}
+\textit{... The conclusion of this study ...}
