@@ -1,0 +1,24 @@
+{
+  "trained_on": "faithdial",
+  "tested_on": "faithdial",
+  "shuffled_context": true,
+  "test": {
+    "accuracy": 0.547867298578199,
+    "precision": 0.5222534081796311,
+    "recall": 0.9992328346758726,
+    "f1": 0.6859776168531929,
+    "macro_f1": 0.4394355089342107,
+    "auroc": 0.9160170346357317,
+    "confusion_matrix": [
+      [
+        285,
+        2383
+      ],
+      [
+        2,
+        2605
+      ]
+    ],
+    "n": 5275
+  }
+}

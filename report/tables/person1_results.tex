@@ -1,0 +1,33 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lllcccc}
+\hline
+Dataset & Model & Setting & Acc & F1 & Macro-F1 & AUROC \\
+\hline
+HaluEval-QA & RoBERTa-base & Context + response & 0.994$\pm$0.000 & 0.994$\pm$0.000 & 0.994$\pm$0.000 & 0.998$\pm$0.000 \\
+HaluEval-QA & DeBERTa-v3-base & Context + response & 0.993$\pm$0.001 & 0.993$\pm$0.001 & 0.993$\pm$0.001 & 0.998$\pm$0.001 \\
+HaluEval-QA & RoBERTa-base & Response only & 0.978$\pm$0.001 & 0.977$\pm$0.001 & 0.978$\pm$0.001 & 0.989$\pm$0.001 \\
+HaluEval-QA & DeBERTa-v3-base & Response only & 0.977$\pm$0.001 & 0.977$\pm$0.001 & 0.977$\pm$0.001 & 0.989$\pm$0.000 \\
+HaluEval-QA & RoBERTa-base & Wrong context & 0.544$\pm$0.007 & 0.687$\pm$0.003 & 0.423$\pm$0.013 & 0.981$\pm$0.004 \\
+HaluEval-QA & DeBERTa-v3-base & Wrong context & 0.540$\pm$0.005 & 0.685$\pm$0.002 & 0.417$\pm$0.009 & 0.883$\pm$0.116 \\
+HaluEval-QA & RoBERTa-base & Trained on the other dataset & 0.314$\pm$0.019 & 0.458$\pm$0.032 & 0.260$\pm$0.010 & 0.368$\pm$0.013 \\
+HaluEval-QA & DeBERTa-v3-base & Trained on the other dataset & 0.481$\pm$0.063 & 0.558$\pm$0.013 & 0.455$\pm$0.098 & 0.506$\pm$0.052 \\
+HaluEval-QA & Baseline: length & Surface features only & 0.944 & 0.943 & 0.944 & 0.972 \\
+HaluEval-QA & Baseline: overlap & Surface features only & 0.984 & 0.984 & 0.984 & 0.996 \\
+\hline
+FaithDial & RoBERTa-base & Context + response & 0.958$\pm$0.002 & 0.957$\pm$0.002 & 0.958$\pm$0.002 & 0.992$\pm$0.000 \\
+FaithDial & DeBERTa-v3-base & Context + response & 0.964$\pm$0.002 & 0.963$\pm$0.002 & 0.964$\pm$0.002 & 0.994$\pm$0.000 \\
+FaithDial & RoBERTa-base & Response only & 0.937$\pm$0.004 & 0.935$\pm$0.005 & 0.937$\pm$0.004 & 0.984$\pm$0.001 \\
+FaithDial & DeBERTa-v3-base & Response only & 0.935$\pm$0.004 & 0.933$\pm$0.005 & 0.935$\pm$0.004 & 0.985$\pm$0.001 \\
+FaithDial & RoBERTa-base & Wrong context & 0.616$\pm$0.022 & 0.720$\pm$0.011 & 0.554$\pm$0.034 & 0.942$\pm$0.024 \\
+FaithDial & DeBERTa-v3-base & Wrong context & 0.555$\pm$0.006 & 0.689$\pm$0.003 & 0.452$\pm$0.011 & 0.921$\pm$0.017 \\
+FaithDial & RoBERTa-base & Trained on the other dataset & 0.486$\pm$0.001 & 0.651$\pm$0.003 & 0.338$\pm$0.015 & 0.463$\pm$0.048 \\
+FaithDial & DeBERTa-v3-base & Trained on the other dataset & 0.508$\pm$0.045 & 0.624$\pm$0.027 & 0.455$\pm$0.059 & 0.539$\pm$0.019 \\
+FaithDial & Baseline: length & Surface features only & 0.534 & 0.519 & 0.534 & 0.548 \\
+FaithDial & Baseline: overlap & Surface features only & 0.561 & 0.561 & 0.561 & 0.584 \\
+\hline
+\end{tabular}
+\caption{Test results of the response-level classifiers, their ablations and the surface baselines. F1 refers to the hallucinated class. Neural models are reported as mean $\pm$ standard deviation over the training seeds; the baselines are deterministic.}
+\label{tab:p1-results}
+\end{table}

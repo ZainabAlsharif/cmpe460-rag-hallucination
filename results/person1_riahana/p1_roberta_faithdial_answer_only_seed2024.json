@@ -1,0 +1,121 @@
+{
+  "config": {
+    "run_name": "p1_roberta_faithdial_answer_only_seed2024",
+    "model_name": "FacebookAI/roberta-base",
+    "dataset": "faithdial",
+    "data_dir": "data/person1_riahana/faithdial",
+    "output_dir": "outputs/p1_roberta_faithdial_answer_only_seed2024",
+    "max_length": 384,
+    "learning_rate": 2e-05,
+    "batch_size": 8,
+    "grad_accumulation": 2,
+    "epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "fp16": true,
+    "gradient_checkpointing": false,
+    "bf16": false,
+    "eight_bit_optimizer": true,
+    "seed": 2024,
+    "split_seed": 42,
+    "input_mode": "answer_only",
+    "history_turns": 3,
+    "max_train_examples": 0,
+    "max_eval_examples": 0,
+    "results_dir": "results/person1_riahana"
+  },
+  "best_epoch": 3,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.30713929128710393,
+      "seconds": 418,
+      "validation": {
+        "accuracy": 0.9146198830409357,
+        "precision": 0.9009111617312073,
+        "recall": 0.9305882352941176,
+        "f1": 0.9155092592592593,
+        "macro_f1": 0.9146104215918046,
+        "auroc": 0.9751846785225718,
+        "confusion_matrix": [
+          [
+            2319,
+            261
+          ],
+          [
+            177,
+            2373
+          ]
+        ],
+        "n": 5130
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.1765256000493524,
+      "seconds": 514,
+      "validation": {
+        "accuracy": 0.9230019493177388,
+        "precision": 0.932557205941389,
+        "recall": 0.9109803921568628,
+        "f1": 0.9216425312438008,
+        "macro_f1": 0.9229787670589573,
+        "auroc": 0.9786929624563003,
+        "confusion_matrix": [
+          [
+            2412,
+            168
+          ],
+          [
+            227,
+            2323
+          ]
+        ],
+        "n": 5130
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.124821340262025,
+      "seconds": 396,
+      "validation": {
+        "accuracy": 0.9272904483430799,
+        "precision": 0.932803180914513,
+        "recall": 0.92,
+        "f1": 0.9263573543928924,
+        "macro_f1": 0.9272787734428369,
+        "auroc": 0.979828165374677,
+        "confusion_matrix": [
+          [
+            2411,
+            169
+          ],
+          [
+            204,
+            2346
+          ]
+        ],
+        "n": 5130
+      }
+    }
+  ],
+  "test": {
+    "accuracy": 0.9412322274881516,
+    "precision": 0.9592163134746101,
+    "recall": 0.9202148062907557,
+    "f1": 0.9393108848864526,
+    "macro_f1": 0.941173266772517,
+    "auroc": 0.9852376746034346,
+    "confusion_matrix": [
+      [
+        2566,
+        102
+      ],
+      [
+        208,
+        2399
+      ]
+    ],
+    "n": 5275
+  }
+}
